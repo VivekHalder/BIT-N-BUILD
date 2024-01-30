@@ -1,4 +1,10 @@
-const { Server } = require("socket.io");
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: '../.env'
+})
+
+import { Server } from "socket.io";
 
 const io = new Server(8000, {
   cors: true,
@@ -6,6 +12,8 @@ const io = new Server(8000, {
 
 import { app } from './app.js';
 import connectDB from './db/index.js';
+
+const PORT = process.env.PORT || 8100
 
 connectDB()
 .then( () => {
