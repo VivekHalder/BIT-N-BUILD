@@ -5,17 +5,24 @@ dotenv.config({
 });
 
 import { app } from './app.js';
-
+import connectDB from './db/index.js';
 
 const PORT = process.env.PORT || 2100;
 
-app.listen( PORT, () => {
-    try {
-        console.log(`The server is up and running at ${ PORT }.`);
-    } catch (error) {
-        console.log(`Error occured while creating the server. Error: ${ error.message }.`);
+connectDB()
+.then( () => {
+        app.on("error", ( error ) => {
+            console.error(`The app and the database couldnot communicate. Error: ${ error.message }.`);
+            process.exit(1);
+        })
+        app.listen( PORT, () => {
+            console.log(`The server is up and running at ${ PORT }.`);
+        })
     }
-} )
+)
+.catch( ( error ) => {
+    console.log(`Error occured while creating the server. Error: ${ error.message }.`);
+} );
 
 import {Server, Socket} from 'socket.io';
 
