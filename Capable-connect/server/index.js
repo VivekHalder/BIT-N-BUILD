@@ -1,4 +1,23 @@
-const {Server, Socket}= require("socket.io");
+import dotenv from 'dotenv';
+
+dotenv.config({
+    path: "../.env"
+});
+
+import { app } from './app.js';
+
+
+const PORT = process.env.PORT || 2100;
+
+app.listen( PORT, () => {
+    try {
+        console.log(`The server is up and running at ${ PORT }.`);
+    } catch (error) {
+        console.log(`Error occured while creating the server. Error: ${ error.message }.`);
+    }
+} )
+
+import {Server, Socket} from 'socket.io';
 
 const io=new Server(8000,{
    cors: true
