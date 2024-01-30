@@ -1,14 +1,33 @@
-import dotenv from 'dotenv';
+const { Server } = require("socket.io");
 
-dotenv.config({
-    path: "../.env"
+const io = new Server(8000, {
+  cors: true,
 });
 
+<<<<<<< HEAD
 import { app } from './app.js';
 import connectDB from './db/index.js';
+=======
+const emailToSocketIdMap = new Map();
+const socketidToEmailMap = new Map();
 
-const PORT = process.env.PORT || 2100;
+io.on("connection", (socket) => {
+  console.log(`Socket Connected`, socket.id);
+  socket.on("room:join", (data) => {
+    const { email, room } = data;
+    emailToSocketIdMap.set(email, socket.id);
+    socketidToEmailMap.set(socket.id, email);
+    io.to(room).emit("user:joined", { email, id: socket.id });
+    socket.join(room);
+    io.to(socket.id).emit("room:join", data);
+  });
+>>>>>>> 00431ce4c99781da1d88f1c5832850e200acd86b
 
+  socket.on("user:call", ({ to, offer }) => {
+    io.to(to).emit("incomming:call", { from: socket.id, offer });
+  });
+
+<<<<<<< HEAD
 connectDB()
 .then( () => {
         app.on("error", ( error ) => {
@@ -23,38 +42,19 @@ connectDB()
 .catch( ( error ) => {
     console.log(`Error occured while creating the server. Error: ${ error.message }.`);
 } );
+=======
+  socket.on("call:accepted", ({ to, ans }) => {
+    io.to(to).emit("call:accepted", { from: socket.id, ans });
+  });
+>>>>>>> 00431ce4c99781da1d88f1c5832850e200acd86b
 
-import {Server, Socket} from 'socket.io';
+  socket.on("peer:nego:needed", ({ to, offer }) => {
+    console.log("peer:nego:needed", offer);
+    io.to(to).emit("peer:nego:needed", { from: socket.id, offer });
+  });
 
-const io=new Server(8000,{
-   cors: true
-});
-
-const emailTosocketIDMap=new Map()
-const socketIDToemailMap=new Map()
-
-io.on("connection",(socket)=>{
-    console.log("Socket Connected",socket.id)
-    socket.on("join:room",data=>{
-        const{email,roomID}=data
-
-        emailTosocketIDMap.set(email,socket.id)
-        socketIDToemailMap.set(socket.id,email)
-
-        socket.join(roomID)
-        io.to(roomID).emit("user:joined",{email,id:socket.id})
-
-        io.to(socket.id).emit("join:room",data)
-    })
-
-        socket.on("user:call",({toID,offer})=>{
-        console.log("Offer received in Backend:",offer)
-        console.log(toID)
-        io.to(toID).emit("incoming:call",{from:socket.id,offer})
-    })
-
-    socket.on("call:accepted",(({to,ans})=>{
-        io.to(to).emit("call:accepted",{from:socket.id,ans})
-
-    }))
+  socket.on("peer:nego:done", ({ to, ans }) => {
+    console.log("peer:nego:done", ans);
+    io.to(to).emit("peer:nego:final", { from: socket.id, ans });
+  });
 });

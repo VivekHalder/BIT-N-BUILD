@@ -4,8 +4,10 @@ import viteLogo from '/vite.svg'
 import React from 'react'
 import './App.css'
 import { Route,Routes } from 'react-router-dom'
-import { Lobby} from './screens/LobbyScreen'
-import { Room } from './screens/RoomScreen'
+
+
+import Lobby from './screens/Lobby'
+import RoomPage from './screens/RoomScreen'
 
 function App() {
  
@@ -15,7 +17,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Lobby></Lobby>}/>
-        <Route path='/room/:roomID' element={<Room></Room>}></Route>
+        <Route path='/room/:roomID' element={<RoomPage></RoomPage>}></Route>
       </Routes>
    
    
