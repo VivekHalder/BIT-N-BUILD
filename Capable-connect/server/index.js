@@ -13,7 +13,7 @@ const io = new Server(8000, {
 import { app } from './app.js';
 import connectDB from './db/index.js';
 
-const PORT = process.env.PORT || 8100
+const PORT = process.env.PORT || 8100;
 
 connectDB()
 .then( () => {
