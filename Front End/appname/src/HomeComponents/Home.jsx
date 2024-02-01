@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 
+import React, { useState } from "react";
 import Content from "./Content";
 import Authentication from "./Authentication";
 import Navbar from "./Navbar";

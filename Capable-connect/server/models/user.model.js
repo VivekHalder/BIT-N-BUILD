@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     disability: {
         type: String,
-        enum: [ "Deaf", "Dumb", "Blind" ],
+        enum: [ "Deaf & Dumb", "Blind" ],
         required: true
     },
     pasword: {

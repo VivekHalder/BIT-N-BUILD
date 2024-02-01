@@ -1,6 +1,5 @@
 import React from 'react'
 const Navbar = ({ openSign }) => {
-
   return (
     <div className=' w-screen h-[100px] bg-orange-500 text-white flex justify-between items-center '>
       <div className=' text-[24px] font-black ml-[30px]'>Capable Connect</div>
