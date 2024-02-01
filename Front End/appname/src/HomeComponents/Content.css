@@ -1,0 +1,18 @@
+.semi {
+  position: absolute;
+  top: 710px;
+  left: 200px;
+  transform: translate(-50%, -50%);
+  height: 100px;
+  width: 200px;
+  border-radius: 150px 150px 0 0;
+  background-color: white;
+}
+.font-cursive {
+  font-family: "Pacifico", cursive;
+  font-style: normal;
+}
+
+.shadow{
+  box-shadow: 10px 10px 10px 10px rgba(34, 33, 33, 0.5);
+}
