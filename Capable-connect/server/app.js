@@ -2,18 +2,22 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { limit } from './constants.js';
+import { createServer } from 'http';
+import socketHandler from './socket/socketHandler.js';
 
 const app = express();
+const httpServer = createServer( app );
 
 app.use( express.urlencoded( 
     {
-        extended: true
+        extended: true,
+        limit
     }
 ) );
 
 app.use( cors({
     origin: "*",
-    limit,
+    credentials: true,
 }) );
 
 app.use( cookieParser() );
@@ -21,4 +25,6 @@ app.use( cookieParser() );
 import userRoutes from './routes/user.routes.js';
 app.use('/api/v1/users', userRoutes);
 
-export { app };
+socketHandler( httpServer );
+
+export { httpServer };
