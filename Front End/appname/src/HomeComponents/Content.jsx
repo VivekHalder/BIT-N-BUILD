@@ -3,10 +3,8 @@ import "./Content.css";
 
 const Content = () => {
   return (
-    <div className=" w-screen flex flex-col justify-center items-center bg-orange-200 gap-5 overflow-x-hidden">
-      <head>
-        
-      </head>
+    <div className=" w-screen flex flex-col justify-center items-center bg-orange-200 gap-5 ">
+
       <div className=" text-[30px] text-orange-600 font-black mt-[30px]">
         Capable Connect
       </div>
@@ -19,7 +17,7 @@ const Content = () => {
         />
       </div>
       <div className=" h-[74px] w-screen  "></div>
-      <div className=" semi"></div>
+      <div className="semi"></div>
       <div className=" w-screen  flex justify-around items-center  bg-white">
         {/* text */}
         <div className=" text-black w-[400px] h-[300px] ml-[100px]">
