@@ -1,9 +1,12 @@
 import React from "react"
 import Home from "./HomeComponents/home"
+import Authentication from "./HomeComponents/Authentication"
 function App() {
  
   return (
-   <Home></Home>
+   <div className=" h-screen w-screen flex justify-center items-center">
+      <Home></Home>
+   </div>
   )
 }
 
