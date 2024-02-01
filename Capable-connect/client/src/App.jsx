@@ -122,6 +122,15 @@ function App() {
           ) )
         }
       </Stack>
+        {/* Video Call Front End */}
+        <div>
+          <Routes>
+            <Route path='/' element={<Lobby></Lobby>}/>
+            <Route path='/room/:roomID' element={<RoomPage></RoomPage>}></Route>
+          </Routes>
+
+        </div>
+
     </Container>
   )
 }
