@@ -23,17 +23,17 @@ export default function Register() {
   });
   const handleInput = (event) => {
     console.log(event.target.value);
-    setInput({ ...input, [event.target.name]: event.target.value });
+    setInput( (prevInput) => ({ ...prevInput, [event.target.name]: event.target.value }));
   };
 
   const handleSubmit = async () => {
-    console.log("Input state before sending data ",input);
+    //console.log("Input state before sending data ",input);
     const res = await axios.post( "http://localhost:2100/api/v1/users/register", {...input} );
 
     if( res.status === 200 ){
       const resLogin = await axios.post( "http://localhost:2100/api/v1/users/login", { phone: input.phone, password: input.password }, { withCredentials: true } );
-      if( resLogin ){
-
+      
+      if( resLogin.status === 200 ){
         if( input.disability === "Blind" ){
           navigate('/chat-space');
         } else{
