@@ -10,7 +10,9 @@ const Home = () => {
   function openSign(){
     setSignState(1);
   }
-  "filter blur-lg"
+  function closeSign(){
+    setSignState(0);
+  }
   return (
     <div className="relative h-screen w-screen">
       <div className={` ${ signState ? "filter blur-lg" : "" } `}>
@@ -18,7 +20,7 @@ const Home = () => {
         <Content></Content>
       </div>
       <div className=" absolute top-0 left-0">
-        {signState ? <Authentication  /> : ""}
+        {signState ? <Authentication closeSign={closeSign} /> : ""}
       </div>
     </div>
   );
