@@ -5,20 +5,24 @@ import { SlCalender } from "react-icons/sl";
 import { FaGenderless } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaBlind } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"; 
 import axios from 'axios';
 
 
 export default function Register() {
+
+  const navigate = useNavigate();
+
   const [input, setInput] = useState({
     name: "",
     dob: "",
-    gender: "",
+    gender: "Male",
     phone: "",
-    disability: "",
+    disability: "Deaf & Dumb",
     password: "",
   });
   const handleInput = (event) => {
-    // console.log(event.target.value);
+    console.log(event.target.value);
     setInput({ ...input, [event.target.name]: event.target.value });
   };
 
@@ -29,14 +33,21 @@ export default function Register() {
     if( res.status === 200 ){
       const resLogin = await axios.post( "http://localhost:2100/api/v1/users/login", { phone: input.phone, password: input.password }, { withCredentials: true } );
       if( resLogin ){
+
+        if( input.disability === "Blind" ){
+          navigate('/chat-space');
+        } else{
+          navigate('/video-call-room');
+        }
+
         setInput({
           name: "",
           dob: "",
-          gender: "",
+          gender: "Male",
           phone: "",
-          disability: "",
+          disability: "Deaf & Dumb",
           password: "",
-        })
+        });
       }
     }
   }
@@ -123,7 +134,7 @@ export default function Register() {
             handleInput(event);
           }}
         >
-          <option value="Deaf">Deaf & Dumb</option>
+          <option value="Deaf & Dumb">Deaf & Dumb</option>
           <option value="Blind">Blind</option>
         </select>
       </div>

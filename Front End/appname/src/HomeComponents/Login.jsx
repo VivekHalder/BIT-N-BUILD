@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaKey } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+
+  const navigate = useNavigate();
+
   const [input, setInput] = useState({
     phone: "",
     password: "",
@@ -18,6 +22,13 @@ export default function Login() {
     const res = await axios.post( "http://localhost:2100/api/v1/users/login", { ...input }, { withCredentials: true } );
 
     if( res ){
+      console.log(res);
+      if( res.data.data.disability === "Blind" ){
+        navigate('/chat-space');
+      } else{
+        navigate('/video-call-room');
+      }
+
       setInput( {
         phone: "",
         password: ""
