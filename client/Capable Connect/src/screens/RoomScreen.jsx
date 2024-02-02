@@ -44,7 +44,7 @@ const RoomPage = () => {
 
   const endCallHandler=()=>{
 
-    navigate("/")
+    navigate("/video-call-room")
     
   }
 
