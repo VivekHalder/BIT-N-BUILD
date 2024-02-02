@@ -2,7 +2,7 @@ import { User } from "../../models/user.model.js";
 
 const generateAccessAndRefreshToken = async ( userID ) => {
     try {
-        const user = User.findById( userID );
+        const user = await User.findById( userID );
     
         const accessToken = user.createAccessToken();
         const refreshToken = user.createRefreshToken();

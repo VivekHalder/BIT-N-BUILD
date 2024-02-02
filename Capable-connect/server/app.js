@@ -8,6 +8,11 @@ import socketHandler from './socket/socketHandler.js';
 const app = express();
 const httpServer = createServer( app );
 
+app.use( express.json({
+    limit,
+    extended: true
+}) )
+
 app.use( express.urlencoded( 
     {
         extended: true,
@@ -16,7 +21,7 @@ app.use( express.urlencoded(
 ) );
 
 app.use( cors({
-    origin: "*",
+    origin: "http://localhost:5173",
     credentials: true,
 }) );
 

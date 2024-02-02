@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         enum: [ "Deaf & Dumb", "Blind" ],
         required: true
     },
-    pasword: {
+    password: {
         type: String,
         required: true
     },
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-userSchema.pre( 'save', async function(){
+userSchema.pre( 'save', async function( next ){
     if(!this.isModified( "password" )) return next();
 
     this.password = await bcrypt.hash( this.password, 10 );

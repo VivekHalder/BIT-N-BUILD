@@ -1,24 +1,45 @@
 import React, { useState } from "react";
-import { MdOutlineMail, MdSettingsInputComponent } from "react-icons/md";
 import { FaKey } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { FaGenderless } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaBlind } from "react-icons/fa";
+import axios from 'axios';
+
+
 export default function Register() {
   const [input, setInput] = useState({
     name: "",
     dob: "",
-    sex: "",
-    phonenumber: "",
+    gender: "",
+    phone: "",
     disability: "",
     password: "",
   });
   const handleInput = (event) => {
-    console.log(input);
+    // console.log(event.target.value);
     setInput({ ...input, [event.target.name]: event.target.value });
   };
+
+  const handleSubmit = async () => {
+    console.log("Input state before sending data ",input);
+    const res = await axios.post( "http://localhost:2100/api/v1/users/register", {...input} );
+
+    if( res.status === 200 ){
+      const resLogin = await axios.post( "http://localhost:2100/api/v1/users/login", { phone: input.phone, password: input.password }, { withCredentials: true } );
+      if( resLogin ){
+        setInput({
+          name: "",
+          dob: "",
+          gender: "",
+          phone: "",
+          disability: "",
+          password: "",
+        })
+      }
+    }
+  }
   return (
     <div className=" justify-center items-start flex flex-col gap-3 w-[350px] h-[400px]">
       <div className=" font-bold text-[25px] pl-[50px]  mb-[30px]">
@@ -61,17 +82,19 @@ export default function Register() {
         <div className=" h-[30px] w-[30px] bg-slate-800 flex justify-center items-center">
           <FaGenderless className=" text-white text-[20px]" />
         </div>
-        <input
-          type="sex"
+        <select
+          type="gender"
           className=" box-border border-2 border-black px-[10px]"
           placeholder="Gender"
-          name="sex"
-          value={input.sex}
+          name="gender"
+          value={input.gender}
           onChange={(event) => {
-
             handleInput(event);
           }}
-        />
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
       </div>
       <div className="flex">
         <div className=" h-[30px] w-[30px] bg-slate-800 flex justify-center items-center">
@@ -81,8 +104,8 @@ export default function Register() {
           type="number"
           className=" box-border border-2 border-black px-[10px] text-black"
           placeholder="phone no"
-          name="phonenumber"
-          value={input.phonenumber}
+          name="phone"
+          value={input.phone}
           onChange={(event) => {
 
             handleInput(event);
@@ -100,8 +123,7 @@ export default function Register() {
             handleInput(event);
           }}
         >
-          <option value="Deaf">Deaf</option>
-          <option value="Dumb">Dumb</option>
+          <option value="Deaf">Deaf & Dumb</option>
           <option value="Blind">Blind</option>
         </select>
       </div>
@@ -123,9 +145,7 @@ export default function Register() {
       </div>
       <button
         className=" box-border bg-orange-600 text-white px-[20px] py-[5px] ml-[250px] rounded-md hover:bg-orange-400 "
-        onClick={() => {
-          console.log(input);
-        }}
+        onClick={handleSubmit}
       >
         Sign Up
       </button>

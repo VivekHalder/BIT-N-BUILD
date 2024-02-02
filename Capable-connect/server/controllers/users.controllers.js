@@ -5,7 +5,10 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import generateAccessAndRefreshToken from './utils/GenerateToken.js';
 
 const registerUser = asyncHandler( async ( req, res, next ) => {
+
     const { name, dob, gender, phone, disability, password } = req.body;
+
+    console.log( name, dob, gender, phone, disability, password );
 
     if([ name, gender, disability, password ].some( ( element ) => element?.trim() === "" )){
         throw new ApiError(
@@ -18,7 +21,8 @@ const registerUser = asyncHandler( async ( req, res, next ) => {
         phone
     });
 
-    if( existingUser ){
+    if( Array.isArray( existingUser ) && existingUser.length > 0 ){
+        console.log( `The user is ${existingUser}` );
         throw new ApiError(
             409,
             "User already exists."
@@ -41,10 +45,10 @@ const registerUser = asyncHandler( async ( req, res, next ) => {
         )
     }
 
-    const user = await User.findById( createdUser?._id ).select( "-id refreshToken" );
+    const user = await User.findById( createdUser?._id ).select( "-id -refreshToken" );
 
-    return res.
-    success(200)
+    return res
+    .status(200)
     .json(
         new ApiResponse(
             200,
@@ -57,18 +61,18 @@ const registerUser = asyncHandler( async ( req, res, next ) => {
 const loginUser = asyncHandler( async ( req, res, next ) => {
     const { phone, password } = req.body;
 
-    if( !!phone ){
+    if( !phone ){
         throw new ApiError(
             400,
             "The phone number cannot be empty."
         )
     }
 
-    const existingUser = await User.find(
+    const existingUser = await User.findOne(
         {
             phone: phone
         }
-    ).select( "-password -refreshToken" );
+    );
 
     if( !existingUser ){
         throw new ApiError(
@@ -94,7 +98,7 @@ const loginUser = asyncHandler( async ( req, res, next ) => {
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken( existingUser._id );
 
     return res
-    .success(200)
+    .status(200)
     .cookie( "access token", accessToken, options )
     .cookie( "refresh token", refreshToken, options )
     .json(
@@ -125,7 +129,7 @@ const logoutUser = asyncHandler( async ( req, res, next ) => {
     }
 
     return res
-    .success( 200 )
+    .status( 200 )
     .clearCookie( "access token", options )
     .clearCookie( "refresh token", options )
     .json(

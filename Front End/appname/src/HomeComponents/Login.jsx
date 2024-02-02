@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaKey } from "react-icons/fa";
+import axios from "axios";
 
 export default function Login() {
   const [input, setInput] = useState({
-    phonenumber: "",
+    phone: "",
     password: "",
   });
 
   const handleInput = (event) => {
     console.log(input);
     setInput({ ...input, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async () => {
+    const res = await axios.post( "http://localhost:2100/api/v1/users/login", { ...input }, { withCredentials: true } );
+
+    if( res ){
+      setInput( {
+        phone: "",
+        password: ""
+      } );
+    }
   };
   return (
     <div className="flex flex-col justify-center items-center gap-4 ml-[20px] -mt-[30px]">
@@ -23,9 +35,9 @@ export default function Login() {
           <input
             type="number"
             className=" box-border border-2 border-black px-[10px]"
-            placeholder="phone number"
-            name="phonenumber"
-            value={input.phonenumber}
+            placeholder="Phone Number"
+            name="phone"
+            value={input.phone}
             onChange={(event) => {
               handleInput(event);
             }}
@@ -36,7 +48,7 @@ export default function Login() {
             <FaKey className=" text-white text-[16px]" />
           </div>
           <input
-            type="text"
+            type="password"
             className=" box-border border-2 border-black px-[10px]"
             placeholder="********"
             name="password"
@@ -48,12 +60,10 @@ export default function Login() {
         </div>
         <button
         className=" box-border bg-orange-600 text-white px-[20px] py-[5px] mt-[20px] hover:bg-orange-400 rounded-md"
-        onClick={() => {
-          console.log(input);
-        }}
-      >
-        Sign In
-      </button>
+        onClick={handleSubmit}
+        >
+          Sign In
+        </button>
       </div>
     </div>
   );

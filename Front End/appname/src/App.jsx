@@ -1,6 +1,5 @@
 import React from "react"
-import Authentication from "./HomeComponents/Authentication"
-import Home from "./HomeComponents/Home"
+import { Home } from "./HomeComponents"
 
 function App() {
   return (
