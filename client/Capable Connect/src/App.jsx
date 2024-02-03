@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import { Home } from "./HomeComponents"
+import { Home } from "./HomeComponents/index.js"
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
-import ChatApp from './chat component/ChatApp';
+import Chat from './chat component/Chat';
 
 import Lobby from './screens/Lobby'
 import RoomPage from './screens/RoomScreen'
@@ -15,7 +15,7 @@ const router=createBrowserRouter([
   },
   {
     path: '/chat-space',
-    element: <ChatApp/>
+    element: <Chat/>
   },
   {
     path: '/video-call-room',
@@ -34,14 +34,14 @@ const router=createBrowserRouter([
 
 function App() {
 
-  const { user } = useContext( UserContext );
+  //const { user } = useContext( UserContext );
 
   return (
-    <ChatProvider user={ user }>
+    // <ChatProvider user={ user }>
       <div className=" h-screen w-screen flex justify-center items-center">
           <RouterProvider router={router}/>
       </div>
-    </ChatProvider>
+    //</ChatProvider>
   );
 }
 export default App;

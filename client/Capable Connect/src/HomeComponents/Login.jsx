@@ -8,7 +8,7 @@ import { useContext } from "react";
 
 export default function Login() {
 
-  const { login } = useContext( UserContext );
+  const { loginUser } = useContext( UserContext );
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export default function Login() {
     if( res ){
       //console.log(res);
 
-      login( res.data.data );
+      loginUser( res.data.data );
 
       if( res.data.data.disability === "Blind" ){
         navigate('/chat-space');

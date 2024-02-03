@@ -17,7 +17,7 @@ const Home = () => {
     <div className="relative h-screen w-screen">
       <div className={` ${ signState ? "filter blur-lg" : "" } `}>
         <Navbar openSign={openSign}></Navbar>
-        <Content></Content>
+        <Content/>
       </div>
       <div className=" absolute top-0 left-0">
         {signState ? <Authentication closeSign={closeSign} /> : ""}

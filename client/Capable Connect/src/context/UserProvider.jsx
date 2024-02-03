@@ -1,4 +1,4 @@
-const { createContext, useReducer } = require("react")
+import { createContext, useReducer } from "react";
 
 const initialState = {
     user: null
@@ -22,7 +22,7 @@ const userReducers = ( state, action ) => {
                 user: null
             }
         default:
-            return user;
+            return state;
     }   
 }
 

@@ -12,7 +12,7 @@ import { UserContext } from "../context/UserProvider";
 
 export default function Register() {
 
-  const { login } = useContext( UserContext );
+  const { loginUser } = useContext( UserContext );
 
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export default function Register() {
       
       if( resLogin.status === 200 ){
 
-        login( user );
+        loginUser( user );
 
         if( input.disability === "Blind" ){
           navigate('/chat-space');
