@@ -27,11 +27,14 @@ app.use( cors({
 
 app.use( cookieParser() );
 
-import userRoutes from './routes/user.routes.js';
-app.use('/api/v1/users', userRoutes);
+import userRoutes from "./routes/user.routes.js";
+app.use("/api/v1/users", userRoutes);
 
-import chatRoutes from './routes/chat.routes.js';
-app.use('/api/v1/chats', chatRoutes);
+import chatRoutes from "./routes/chat.routes.js";
+app.use("/api/v1/chats", chatRoutes);
+
+import messageRoutes from "./routes/message.routes.js"
+app.use("/api/v1/messages", messageRoutes)
 
 socketHandler( httpServer );
 
