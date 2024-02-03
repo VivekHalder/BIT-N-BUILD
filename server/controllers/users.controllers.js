@@ -60,7 +60,6 @@ const registerUser = asyncHandler( async ( req, res, next ) => {
 
 const loginUser = asyncHandler( async ( req, res, next ) => {
     const { phone, password } = req.body;
-
     if( !phone ){
         throw new ApiError(
             400,
@@ -72,7 +71,7 @@ const loginUser = asyncHandler( async ( req, res, next ) => {
         {
             phone: phone
         }
-    );
+    ).select( "password _id" );
 
     if( !existingUser ){
         throw new ApiError(
@@ -90,6 +89,8 @@ const loginUser = asyncHandler( async ( req, res, next ) => {
         )
     }
 
+    const loggedInUser = await User.findById( existingUser._id ).select( "-password -refreshToken" );
+
     const options = {
         httpOnly: true,
         secure: true
@@ -104,6 +105,7 @@ const loginUser = asyncHandler( async ( req, res, next ) => {
     .json(
         new ApiResponse(
             200,
+            loggedInUser,
             "User successfully logged in."
         )
     );

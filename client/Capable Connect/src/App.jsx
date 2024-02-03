@@ -34,14 +34,14 @@ const router=createBrowserRouter([
 
 function App() {
 
-  //const { user } = useContext( UserContext );
+  const { user } = useContext( UserContext );
 
   return (
-    // <ChatProvider user={ user }>
+    <ChatProvider user={ user }>
       <div className=" h-screen w-screen flex justify-center items-center">
           <RouterProvider router={router}/>
       </div>
-    //</ChatProvider>
+    </ChatProvider>
   );
 }
 export default App;

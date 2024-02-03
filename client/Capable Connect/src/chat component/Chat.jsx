@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Container, Stack } from "react-bootstrap"
 import { ChatContext } from '../context/ChatProvider'
 
 function Chat() {
@@ -8,7 +9,20 @@ function Chat() {
     console.log( userChats );
 
   return (
-    <div>Chat</div>
+    <Container>
+        {
+            userChats?.length < 1 ? null : 
+            <Stack>
+                <Stack>
+                    List
+                </Stack>
+                <p>
+
+                </p>
+
+            </Stack>
+        }
+    </Container>
   )
 }
 

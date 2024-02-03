@@ -21,8 +21,7 @@ export const ChatProvider = ( { children, user } ) => {
                 setUserChatsError( res );
             }
 
-
-            setUserChats( res );
+            setUserChats( res.data );
         }
     }
 

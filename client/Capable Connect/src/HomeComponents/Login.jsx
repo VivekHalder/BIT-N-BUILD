@@ -26,7 +26,7 @@ export default function Login() {
     const res = await axios.post( "http://localhost:2100/api/v1/users/login", { ...input }, { withCredentials: true } );
 
     if( res ){
-      //console.log(res);
+      console.log(res);
 
       loginUser( res.data.data );
 
