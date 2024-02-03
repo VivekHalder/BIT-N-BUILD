@@ -1,10 +1,12 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Home } from "./HomeComponents"
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
 import ChatApp from './chat component/ChatApp';
 
 import Lobby from './screens/Lobby'
 import RoomPage from './screens/RoomScreen'
+import { UserContext } from "./context/UserProvider";
+import { ChatProvider } from "./context/ChatProvider";
 
 const router=createBrowserRouter([
   {
@@ -31,10 +33,15 @@ const router=createBrowserRouter([
 ])
 
 function App() {
+
+  const { user } = useContext( UserContext );
+
   return (
-   <div className=" h-screen w-screen flex justify-center items-center">
-      <RouterProvider router={router}/>
-   </div>
+    <ChatProvider user={ user }>
+      <div className=" h-screen w-screen flex justify-center items-center">
+          <RouterProvider router={router}/>
+      </div>
+    </ChatProvider>
   );
 }
 export default App;

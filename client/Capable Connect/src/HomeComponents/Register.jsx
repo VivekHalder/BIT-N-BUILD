@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaKey } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
@@ -7,9 +7,12 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaBlind } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; 
 import axios from 'axios';
+import { UserContext } from "../context/UserProvider";
 
 
 export default function Register() {
+
+  const { login } = useContext( UserContext );
 
   const navigate = useNavigate();
 
@@ -34,6 +37,9 @@ export default function Register() {
       const resLogin = await axios.post( "http://localhost:2100/api/v1/users/login", { phone: input.phone, password: input.password }, { withCredentials: true } );
       
       if( resLogin.status === 200 ){
+
+        login( user );
+
         if( input.disability === "Blind" ){
           navigate('/chat-space');
         } else{
