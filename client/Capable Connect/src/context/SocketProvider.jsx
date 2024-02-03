@@ -17,3 +17,9 @@ export const SocketProvider = (props) => {
     </SocketContext.Provider>
   );
 };
+
+const UserContext = createContext();
+
+export const UserProvider = ({children}) => {
+  
+}
