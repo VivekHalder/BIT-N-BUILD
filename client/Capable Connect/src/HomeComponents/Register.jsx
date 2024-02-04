@@ -38,7 +38,7 @@ export default function Register() {
       
       if( resLogin.status === 200 ){
 
-        loginUser( user );
+        loginUser( input );
 
         if( input.disability === "Blind" ){
           navigate('/chat-space');
