@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const createChat = asyncHandler( async ( req, res, next ) => {
-    const [ firstID, secondID ] = req.body;
+    const { firstID, secondID } = req.body;
 
     try {
         if( [ firstID, secondID ].some( ( element ) => ( element.trim() === "" ) ) ){

@@ -51,9 +51,9 @@ export default function ChatApp() {
   },  [] );
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className='h-screen'>
       <Typography variant="h1" component="div" gutterBottom>
-        Welcome to Socket.io
+        Welcome to Capable Connect's chat support
       </Typography>
 
       <Typography variant="h3" component="div" gutterBottom>

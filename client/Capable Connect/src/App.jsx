@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import { Home } from "./HomeComponents/index.js"
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
 import Chat from './chat component/Chat';
+import ChatApp from './chat component/ChatApp.jsx'
 
 import Lobby from './screens/Lobby'
 import RoomPage from './screens/RoomScreen'
@@ -15,7 +16,7 @@ const router=createBrowserRouter([
   },
   {
     path: '/chat-space',
-    element: <Chat/>
+    element: <ChatApp/>
   },
   {
     path: '/video-call-room',

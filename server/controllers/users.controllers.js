@@ -143,4 +143,55 @@ const logoutUser = asyncHandler( async ( req, res, next ) => {
     );
 } );
 
-export { registerUser, loginUser, logoutUser };
+const findUser = asyncHandler( async ( req, res, next ) => {
+    try {
+        const userId = req.params;
+    
+        if( !userId ){
+            throw new ApiError(
+                400,
+                "No user id in the params."
+            )
+        }
+    
+        const user = await User.findById( userId ).select("-password -refreshToken");
+    
+        if( !user ){
+            throw new ApiError(
+                404,
+                "User not found."
+            )
+        }
+    
+        return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                user,
+                "User retrieved successfully."
+            )
+        );
+    } catch (error) {
+        console.error(`Error occured while finding the user. Error: ${error.message}`);
+    }
+} );
+
+const getAllUsers = asyncHandler( async ( req, res, next ) => {
+    try {
+        const allUsers = await User.find();
+        return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                allUsers,
+                "All users fetched successfully."
+            )
+        )
+    } catch (error) {
+        console.error(`Error occured while fetching all the users. Error: ${ error.message }.`);
+    }
+} );
+
+export { registerUser, loginUser, logoutUser, findUser, getAllUsers };
