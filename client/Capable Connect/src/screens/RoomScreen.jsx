@@ -119,11 +119,11 @@ const RoomPage = () => {
   ]);
 
   return (
-    <div className="bg-[#3c4043] h-[100vh] w-[100vw] overflow-x-hidden overflow-y-hidden">
+    <div className="bg-[#3c4043] h-screen w-screen overflow-x-hidden overflow-y-hidden">
      
-      <h4> {remoteSocketId ? <p className="text-white">Connected to {remoteSocketId}</p> :  <p className="text-white flex justify-center items-center text-4xl font-bold w-[100vw] h-[100vh] ">No one in the Room </p>} </h4>
+      <h4> {remoteSocketId ? <p className="text-white ml-[650px] mt-[300px] text-[20px] absolute">Connected to {remoteSocketId}</p> :  <p className="text-white flex justify-center items-center text-4xl font-bold w-[100vw] h-[100vh] ">No one in the Room </p>} </h4>
       {myStream && <button onClick={sendStreams} className="bg-blue-500 text-xl text-white px-[20px] py-[10px] mr-10 mb-2 rounded-lg border-2 border-white">Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser} className="bg-blue-500 text-xl text-white px-[20px] py-[10px] rounded-lg border-2 border-white">CALL</button>}
+      {remoteSocketId && <button onClick={handleCallUser} className="bg-blue-500 text-xl text-white px-[20px] py-[10px] rounded-lg border-2 border-white ">CALL</button>}
       <div className="bg-[#3c4043] absolute w-[234px] h-[132px] rounded-lg right-10 bottom-10 z-10 overflow-hidden"> 
       
 
@@ -133,7 +133,7 @@ const RoomPage = () => {
 
             <ReactPlayer
               playing
-              
+              muted
               height="100%"
               width="100%"
               url={myStream}
@@ -142,13 +142,13 @@ const RoomPage = () => {
         )}
       </div>
 
-      <div className=" w-[1277px] h-[646px] flex justify-center items-center mx-auto relative">
+      <div className=" w-[1277px] h-[646px] flex justify-center items-center mx-auto relative ">
       {remoteStream && (
         <>
          
           <ReactPlayer
             playing
-            
+            muted
             height="100%"
             width="100%"
             url={remoteStream}
